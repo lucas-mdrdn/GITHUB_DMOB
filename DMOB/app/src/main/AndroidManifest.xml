@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DMOB">
         <activity
+            android:name=".seeAlarm"
+            android:exported="false" />
+        <activity
             android:name=".CreateAlarm"
             android:exported="false" />
         <activity
