@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">DMOB</string>
+    <string name="please_select_the_days">Please select the days</string>
+    <string name="select_the_song_for_the_alarm">Select the song for the alarm</string>
+    <string name="lundi">Lundi</string>
+    <string name="mardi">Mardi</string>
+    <string name="mercredi">Mercredi</string>
+    <string name="vendredi">Vendredi</string>
+    <string name="jeudi">Jeudi</string>
+    <string name="samedi">Samedi</string>
+    <string name="dimanche">Dimanche</string>
+    <string name="please_select_the_time">Please select the time</string>
+    <string name="current_alarms">Current alarms :</string>
 </resources>
