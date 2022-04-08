@@ -28,4 +28,5 @@
     <string name="heure">heure</string>
     <string name="alarm_minute">alarm minute</string>
     <string name="deuxpoints">:</string>
+    <string name="delete_all">Delete All</string>
 </resources>

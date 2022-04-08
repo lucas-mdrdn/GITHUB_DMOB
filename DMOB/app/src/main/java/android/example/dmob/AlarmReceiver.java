@@ -18,7 +18,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        NotificationCompat.Builder nb = notificationHelper.getChannel1Notification("Veuillez quitter votre localisation", "b");
+        NotificationCompat.Builder nb = notificationHelper.getChannel1Notification("Veuillez quitter votre localisation");
         notificationHelper.getManager().notify(1, nb.build());
     }
 }

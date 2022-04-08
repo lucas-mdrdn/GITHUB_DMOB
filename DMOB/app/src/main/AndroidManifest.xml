@@ -23,7 +23,7 @@
             android:name =".CreateAlarm"
             android:exported="false" />
         <activity
-            android:label="Alarmes"
+            android:label="LeaveHome"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
