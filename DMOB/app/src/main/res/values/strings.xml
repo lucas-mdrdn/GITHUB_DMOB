@@ -24,4 +24,8 @@
     <string name="open_time_picker">Open time picker</string>
     <string name="stop_alarm">stop alarm</string>
     <string name="create_an_alarm">Create an alarm :</string>
+    <string name="_1">1</string>
+    <string name="heure">heure</string>
+    <string name="alarm_minute">alarm minute</string>
+    <string name="deuxpoints">:</string>
 </resources>

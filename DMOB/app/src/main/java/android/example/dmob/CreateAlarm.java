@@ -47,6 +47,10 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
     TextView PosX, PosY;//Pour la localisation
     FusedLocationProviderClient fusedLocationProviderClient;//Pour la localisation
 
+    int Hour;
+    int Minute;
+    Button saveBtn;
+
 
     TextView mTextView;//Pour l'alarm
 
@@ -63,6 +67,17 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         mTextView = findViewById(R.id.textview1);
+
+        saveBtn = findViewById(R.id.buttonSave);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyDatabase myDB = new MyDatabase(CreateAlarm.this);
+                String latitude = PosX.getText().toString();
+                String longitude = PosX.getText().toString();
+                myDB.addAlarm(Hour, Minute, latitude, longitude);
+            }
+        });
 
 
         getFragmentManager().beginTransaction().replace(R.id.fragment, new RingtonePreference()).commit();
@@ -112,7 +127,7 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
                     try {
                         Geocoder geocoder = new Geocoder(CreateAlarm.this, Locale.getDefault());
                         List<Address> adresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                        PosX.setText(String.valueOf(adresses.get(0).getLatitude()));
+//                        PosX.setText(String.valueOf(adresses.get(0).getLatitude()));
                         PosX.setText(Html.fromHtml("<font color='2#6200EE'><b>Latitude :</b><br></font>" + adresses.get(0).getLatitude()));
                         PosY.setText(Html.fromHtml("<font color='2#6200EE'><b>Longitude :</b><br></font>" + adresses.get(0).getLongitude()));
                     } catch (IOException e) {
@@ -135,6 +150,8 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
+        Hour = hourOfDay;
+        Minute = minute;
 
         updateTimeText(calendar);
         startAlarm(calendar);
