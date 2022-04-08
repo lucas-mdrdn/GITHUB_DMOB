@@ -18,5 +18,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, CreateAlarm.class);
         startActivity(i);
     }
+
 }
 

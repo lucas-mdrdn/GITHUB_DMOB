@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:focusable="true"
         android:onClick="launchCreateAlarm"
         app:backgroundTint="@android:color/darker_gray"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,10 +21,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.165"
         app:srcCompat="@android:drawable/ic_menu_add"
-        tools:ignore="MissingConstraints"
-        android:focusable="true" />
+        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/current_alarms"
@@ -35,5 +36,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.092" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

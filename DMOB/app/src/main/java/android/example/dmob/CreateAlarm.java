@@ -4,16 +4,27 @@ package android.example.dmob;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.AlarmClock;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -22,39 +33,58 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 
-public class CreateAlarm extends AppCompatActivity {
-    Button LocationButton;
-    View PosX, PosY;
-    FusedLocationProviderClient fusedLocationProviderClient;
+public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
+    Button LocationButton;//Pour la localisation
+    TextView PosX, PosY;//Pour la localisation
+    FusedLocationProviderClient fusedLocationProviderClient;//Pour la localisation
+
+    TextView mTextView;//Pour l'alarm
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_alarm);
 
-        LocationButton = findViewById(R.id.LocationButton);
-        PosX = findViewById(R.id.PosX);
-        PosY = findViewById(R.id.PosY);
-
+        LocationButton = findViewById(R.id.btn_pos);
+        PosX = findViewById(R.id.textView4);
+        PosY = findViewById(R.id.textView5);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        LocationButton.setOnClickListener(new View.onClickListener() {
+        mTextView = findViewById(R.id.textview1);
+
+        Button buttonTimePicker = findViewById(R.id.button2);
+        buttonTimePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment timePicker = new TimePickerFragment();
+                timePicker.show(getSupportFragmentManager(), "time picker");
+            }
+        });
+
+
+        LocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(CreateAlarm.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                //Check permission
+                if (ActivityCompat.checkSelfPermission(CreateAlarm.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    //When permission granted
                     getLocation();
                 } else {
-                    ActivityCompat.requestPermissions(CreateAlarm.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                    ActivityCompat.requestPermissions(CreateAlarm.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 44);
                 }
             }
         });
     }
 
     private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -72,12 +102,15 @@ public class CreateAlarm extends AppCompatActivity {
                     try {
                         Geocoder geocoder = new Geocoder(CreateAlarm.this, Locale.getDefault());
                         List<Address> adresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                        PosX.setText(String.valueOf(adresses.get(0).getLatitude()));
+                        PosX.setText(Html.fromHtml("<font color='2#6200EE'><b>Latitude :</b><br></font>" + adresses.get(0).getLatitude()));
+                        PosY.setText(Html.fromHtml("<font color='2#6200EE'><b>Longitude :</b><br></font>" + adresses.get(0).getLongitude()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
-        })
+        });
     }
 
     public void launchMainActivity(View v){
@@ -86,16 +119,31 @@ public class CreateAlarm extends AppCompatActivity {
     }
 
 
-    class alarm {
-        float x;
-        float y;
-        float altitude;
-        boolean lundi;
-        boolean mardi;
-        boolean mercredi;
-        boolean jeudi;
-        boolean vendredi;
-        boolean samedi;
-        boolean dimanche;
+    @Override
+    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+
+        updateTimeText(calendar);
+        startAlarm(calendar);
     }
+
+    private void updateTimeText(Calendar calendar) {
+        String timeText = "Alarm set for : ";
+        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(calendar.getTime());
+
+        mTextView.setText(timeText);
+    }
+
+    private void startAlarm(Calendar calendar) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
+
 }

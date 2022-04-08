@@ -11,4 +11,15 @@
     <string name="dimanche">Dimanche</string>
     <string name="please_select_the_time">Please select the time</string>
     <string name="current_alarms">Current alarms :</string>
+    <string name="get_location">Get Location</string>
+    <string name="pos">POS</string>
+    <string name="test">Test</string>
+    <string name="test2">test2</string>
+    <string name="hour">Hour</string>
+    <string name="minute">Minute</string>
+    <string name="set_alarm">Set Alarm</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="no_alarm_set">No Alarm Set</string>
+    <string name="open_time_picker">Open time picker</string>
 </resources>
