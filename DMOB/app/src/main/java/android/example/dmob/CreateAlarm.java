@@ -31,6 +31,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -38,6 +39,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
@@ -46,6 +48,8 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
     FusedLocationProviderClient fusedLocationProviderClient;//Pour la localisation
 
     TextView mTextView;//Pour l'alarm
+
+    Button SongButton;//Pour choisir le son
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,10 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         mTextView = findViewById(R.id.textview1);
+
+        getFragmentManager().beginTransaction().replace(R.id.fragment, new RingtonePreference()).commit();
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         Button buttonTimePicker = findViewById(R.id.button2);
         buttonTimePicker.setOnClickListener(new View.OnClickListener() {

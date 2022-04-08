@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
+import android.se.omapi.Channel;
 
 import androidx.core.app.NotificationCompat;
 
@@ -26,6 +28,7 @@ public class NotificationHelper extends ContextWrapper {
         createChannels();
         }
     }
+
 
     @TargetApi(Build.VERSION_CODES.O)
     private void createChannels() {//A MODIFIER POUR CHANGER LE TYPE DE NOTIFICATION (METTRE LE SON)
