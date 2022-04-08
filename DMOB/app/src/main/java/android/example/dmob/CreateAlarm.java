@@ -152,6 +152,10 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
         Intent intent = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
+//        if (calendar.before(Calendar.getInstance())) {
+//            calendar.add(Calendar.DATE, 1);
+//        }//CODE A DECOMMENTER POUR LA VERSION FINALE
+
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
@@ -178,8 +182,8 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    int num1 = Integer.parseInt(String.valueOf(PosX));
-                    int num2 = Integer.parseInt(String.valueOf(PosY));
+                    float num1 = Float.parseFloat(String.valueOf(PosX));
+                    float num2 = Float.parseFloat(String.valueOf(PosY));
                     if (num1 != location.getLatitude()){
                         //CODE SENSÉ ARRÊTER L'ALARME
                     }

@@ -18,9 +18,12 @@
             android:name=".seeAlarm"
             android:exported="false" />
         <activity
+            android:parentActivityName=".MainActivity"
+            android:label="Create an alarm"
             android:name =".CreateAlarm"
             android:exported="false" />
         <activity
+            android:label="Alarmes"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
