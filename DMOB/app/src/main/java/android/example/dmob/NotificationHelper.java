@@ -19,6 +19,7 @@ public class NotificationHelper extends ContextWrapper {
     public static final String channel1Name = "channel 1";
     public static final String channel2ID = "channel2ID";
     public static final String channel2Name = "channel 2";
+    public static Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
 
     private NotificationManager mManager;
     
@@ -58,10 +59,10 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     public NotificationCompat.Builder getChannel1Notification(String title, String message){
-        return new NotificationCompat.Builder(getApplicationContext(),channel1ID).setContentTitle(title).setContentText(message).setSmallIcon(R.drawable.ic_one);
+        return new NotificationCompat.Builder(getApplicationContext(),channel1ID).setContentTitle(title).setContentText(message).setSmallIcon(R.drawable.ic_one).setSound(alarmSound);
     }
 
-    public NotificationCompat.Builder getChannel2Notification(String title, String message){
-        return new NotificationCompat.Builder(getApplicationContext(),channel2ID).setContentTitle(title).setContentText(message).setSmallIcon(R.drawable.ic_one);
-    }
+//    public NotificationCompat.Builder getChannel2Notification(String title, String message){
+//        return new NotificationCompat.Builder(getApplicationContext(),channel2ID).setContentTitle(title).setContentText(message).setSmallIcon(R.drawable.ic_one).setSound(alarmSound);
+//    }
 }

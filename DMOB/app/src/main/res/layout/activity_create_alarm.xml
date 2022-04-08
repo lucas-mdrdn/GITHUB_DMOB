@@ -63,7 +63,7 @@
     <Button
         android:id="@+id/btn_pos"
         android:layout_width="64dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:text="@string/pos"
         app:icon="@android:drawable/ic_menu_mylocation"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,6 +78,7 @@
         android:layout_width="112dp"
         android:layout_height="54dp"
         android:text="@string/latitude"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.076"
@@ -90,6 +91,7 @@
         android:layout_width="131dp"
         android:layout_height="55dp"
         android:text="@string/longitude"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.585"
@@ -99,9 +101,10 @@
 
     <Button
         android:id="@+id/btnSong"
-        android:layout_width="74dp"
-        android:layout_height="56dp"
-        app:icon="@android:drawable/ic_lock_silent_mode_off"
+        android:layout_width="97dp"
+        android:layout_height="55dp"
+        android:text="@string/stop_alarm"
+        android:onClick="launchStopAlarm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -113,11 +116,13 @@
         android:id="@+id/fragment"
         android:layout_width="341dp"
         android:layout_height="72dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.642"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789">
+        app:layout_constraintVertical_bias="0.784">
 
     </FrameLayout>
 

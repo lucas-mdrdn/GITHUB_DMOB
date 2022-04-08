@@ -47,6 +47,7 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
     TextView PosX, PosY;//Pour la localisation
     FusedLocationProviderClient fusedLocationProviderClient;//Pour la localisation
 
+
     TextView mTextView;//Pour l'alarm
 
     Button SongButton;//Pour choisir le son
@@ -62,6 +63,7 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         mTextView = findViewById(R.id.textview1);
+
 
         getFragmentManager().beginTransaction().replace(R.id.fragment, new RingtonePreference()).commit();
 
@@ -121,7 +123,7 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
         });
     }
 
-    public void launchMainActivity(View v){
+    public void launchMainActivity(View v) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
@@ -154,4 +156,38 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
     }
 
 
+    public void launchStopAlarm(View view) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location = task.getResult();
+                if (location != null){
+                    try {
+                        Geocoder geocoder = new Geocoder(CreateAlarm.this, Locale.getDefault());
+                        List<Address> adresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    int num1 = Integer.parseInt(String.valueOf(PosX));
+                    int num2 = Integer.parseInt(String.valueOf(PosY));
+                    if (num1 != location.getLatitude()){
+                        //CODE SENSÉ ARRÊTER L'ALARME
+                    }
+                    else if (num2 != location.getLongitude()){
+                        //CODE SENSÉ ARRÊTER L'ALARME
+                    }
+                }
+            }
+        });
+    }
 }

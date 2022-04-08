@@ -22,4 +22,6 @@
     <string name="longitude">Longitude</string>
     <string name="no_alarm_set">No Alarm Set</string>
     <string name="open_time_picker">Open time picker</string>
+    <string name="stop_alarm">stop alarm</string>
+    <string name="create_an_alarm">Create an alarm :</string>
 </resources>
