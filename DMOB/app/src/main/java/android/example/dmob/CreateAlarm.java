@@ -74,7 +74,7 @@ public class CreateAlarm extends AppCompatActivity implements TimePickerDialog.O
             public void onClick(View view) {
                 MyDatabase myDB = new MyDatabase(CreateAlarm.this);
                 String latitude = PosX.getText().toString();
-                String longitude = PosX.getText().toString();
+                String longitude = PosY.getText().toString();
                 myDB.addAlarm(Hour, Minute, latitude, longitude);
             }
         });
